@@ -1,11 +1,12 @@
+// vite.config.ts
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import tailwind from '@tailwindcss/vite';
+import tailwind from '@tailwindcss/vite'; // ← 이름: tailwind
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwind()],
-
-  // GitHub Pages에 올릴 때 레포가 <repo> 라면 주석 해제:
-  // base: '/<repo>/',
+  plugins: [
+    react(),
+    tailwind(), // ← 같은 이름으로 호출
+  ],
+  base: '/kitaekshoppingmall/', // 레포명에 맞게 (다른 레포면 그 이름)
 });

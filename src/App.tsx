@@ -205,7 +205,6 @@ export default function PCShop() {
     <div className="relative min-h-screen text-emerald-500">
       {/* Global background layer to cover the entire window */}
       <div className="fixed inset-0 -z-10 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950" />
-
       {/* Header */}
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-slate-900/60 bg-slate-900/80 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
@@ -235,7 +234,6 @@ export default function PCShop() {
           </div>
         </div>
       </header>
-
       {/* Toolbar */}
       <div className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center gap-3">
         <div className="hidden md:flex items-center gap-3">
@@ -288,7 +286,6 @@ export default function PCShop() {
           </div>
         </div>
       </div>
-
       {/* Content */}
       <main className="max-w-7xl mx-auto px-4 pb-28">
         {filtered.length === 0 ? (
@@ -329,10 +326,8 @@ export default function PCShop() {
           </div>
         )}
       </main>
-
       {/* Compare Bar */}
-      <CompareBar ids={selected} onClear={() => setSelected([])} onOpen={() => setDetail(null)} />
-
+      <CompareBar ids={selected} onClear={() => setSelected([])} />
       {/* Floating Filter Drawer for mobile */}
       {showFilters && (
         <div className="fixed inset-0 z-50 flex">
@@ -397,13 +392,10 @@ export default function PCShop() {
           <div className="flex-1 bg-black/50" onClick={() => setShowFilters(false)} />
         </div>
       )}
-
       {/* Detail / Compare Modal */}
       {detail && <DetailModal product={detail} onClose={() => setDetail(null)} onAdd={() => addToCart(detail.id)} />}
-
       {/* Cart Drawer (state sync) */}
-      <CartDrawer cart={cart} onClose={() => {}} onQty={setQty} onRemove={removeFromCart} />
-
+      <CartDrawer cart={cart} onQty={setQty} onRemove={removeFromCart} />
       {/* Footer */}
       <footer className="border-t border-white/10 py-10 text-center text-sm text-slate-400">
         © {new Date().getFullYear()} 오기택 • 쇼핑몰 UI
@@ -590,7 +582,7 @@ function EmptyState({ onReset }: { onReset: () => void }) {
   );
 }
 
-function CompareBar({ ids, onClear, onOpen }: { ids: string[]; onClear: () => void; onOpen: () => void }) {
+function CompareBar({ ids, onClear }: { ids: string[]; onClear: () => void }) {
   if (ids.length === 0) return null;
   const items = PRODUCTS.filter((p) => ids.includes(p.id));
   return (
@@ -783,12 +775,10 @@ function CartDrawerOpen({ onClose }: { onClose: () => void }) {
 
 function CartDrawer({
   cart,
-  onClose,
   onQty,
   onRemove,
 }: {
   cart: Record<string, number>;
-  onClose: () => void;
   onQty: (id: string, qty: number) => void;
   onRemove: (id: string) => void;
 }) {
